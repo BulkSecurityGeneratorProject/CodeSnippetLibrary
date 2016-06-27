@@ -1,0 +1,17 @@
+version: '2'
+services:
+    codesnippetlibrary-mongodb:
+        container_name: codesnippetlibrary-mongodb
+        image: mongo:3.3.5
+        ports:
+            - "27017:27017"
+        command: mongos --configdb codesnippetlibrary-mongodb-config
+    codesnippetlibrary-mongodb-node:
+        build:
+            context: .
+            dockerfile: mongodb/MongoDB.Dockerfile
+        command: mongod --replSet rs1 --noprealloc --smallfiles
+    codesnippetlibrary-mongodb-config:
+        image: mongo:3.3.5
+        container_name: codesnippetlibrary-mongodb-config
+        command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db
