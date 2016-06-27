@@ -46,8 +46,8 @@ jhipster:
                 secret: my-secret-token-to-change-in-production
                 # Token is valid 30 minutes
                 tokenValidityInSeconds: 1800
-    mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: CodeSnippetLibrary@localhost
+#    mail: # specific JHipster mail property, for standard properties see MailProperties
+#        from: CodeSnippetLibrary@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
