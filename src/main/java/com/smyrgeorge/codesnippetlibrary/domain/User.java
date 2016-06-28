@@ -24,7 +24,7 @@ import java.time.ZonedDateTime;
 /**
  * A user.
  */
-@Document(collection = "jhi_user")
+@Document(collection = "csl_user")
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60) 
+    @Size(min = 60, max = 60)
     private String password;
 
     @Size(max = 50)

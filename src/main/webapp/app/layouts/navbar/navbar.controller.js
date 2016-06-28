@@ -10,6 +10,7 @@
     function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
         var vm = this;
 
+        vm.account = null;
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
 
@@ -22,7 +23,17 @@
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
+        vm.userSnippets = userSnippets;
         vm.$state = $state;
+
+        getAccount();
+
+        function getAccount() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+                vm.isAuthenticated = Principal.isAuthenticated;
+            });
+        }
 
         function login() {
             collapseNavbar();
@@ -41,6 +52,10 @@
 
         function collapseNavbar() {
             vm.isNavbarCollapsed = true;
+        }
+
+        function userSnippets() {
+            $state.go('user-snippets', {'username': vm.account.login});
         }
     }
 })();

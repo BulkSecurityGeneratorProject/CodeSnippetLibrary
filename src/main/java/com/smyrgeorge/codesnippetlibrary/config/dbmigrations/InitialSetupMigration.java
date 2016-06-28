@@ -28,7 +28,7 @@ public class InitialSetupMigration {
 
     @ChangeSet(order = "01", author = "initiator", id = "01-addAuthorities")
     public void addAuthorities(DB db) {
-        DBCollection authorityCollection = db.getCollection("jhi_authority");
+        DBCollection authorityCollection = db.getCollection("csl_authority");
         authorityCollection.insert(
             BasicDBObjectBuilder.start()
                 .add("_id", "ROLE_ADMIN")
@@ -41,39 +41,11 @@ public class InitialSetupMigration {
 
     @ChangeSet(order = "02", author = "initiator", id = "02-addUsers")
     public void addUsers(DB db) {
-        DBCollection usersCollection = db.getCollection("jhi_user");
+        DBCollection usersCollection = db.getCollection("csl_user");
         usersCollection.createIndex("login");
         usersCollection.createIndex("email");
         usersCollection.insert(BasicDBObjectBuilder.start()
             .add("_id", "user-0")
-            .add("login", "system")
-            .add("password", "$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG")
-            .add("first_name", "")
-            .add("last_name", "System")
-            .add("email", "system@localhost")
-            .add("activated", "true")
-            .add("lang_key", "en")
-            .add("created_by", "system")
-            .add("created_date", new Date())
-            .add("authorities", authoritiesAdminAndUser)
-            .get()
-        );
-        usersCollection.insert(BasicDBObjectBuilder.start()
-            .add("_id", "user-1")
-            .add("login", "anonymousUser")
-            .add("password", "$2a$10$j8S5d7Sr7.8VTOYNviDPOeWX8KcYILUVJBsYV83Y5NtECayypx9lO")
-            .add("first_name", "Anonymous")
-            .add("last_name", "User")
-            .add("email", "anonymous@localhost")
-            .add("activated", "true")
-            .add("lang_key", "en")
-            .add("created_by", "system")
-            .add("created_date", new Date())
-            .add("authorities", new Map[]{})
-            .get()
-        );
-        usersCollection.insert(BasicDBObjectBuilder.start()
-            .add("_id", "user-2")
             .add("login", "admin")
             .add("password", "$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC")
             .add("first_name", "admin")
@@ -87,7 +59,7 @@ public class InitialSetupMigration {
             .get()
         );
         usersCollection.insert(BasicDBObjectBuilder.start()
-            .add("_id", "user-3")
+            .add("_id", "user-1")
             .add("login", "user")
             .add("password", "$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K")
             .add("first_name", "")
@@ -98,6 +70,47 @@ public class InitialSetupMigration {
             .add("created_by", "system")
             .add("created_date", new Date())
             .add("authorities", authoritiesUser)
+            .get()
+        );
+    }
+
+    @ChangeSet(order = "03", author = "initiator", id = "03-addSampleSnippets")
+    public void addSampleSnippets(DB db) {
+        DBCollection publicSnippets = db.getCollection("csl_public_snippets");
+        publicSnippets.createIndex("title");
+        publicSnippets.insert(BasicDBObjectBuilder.start()
+            .add("_id", "pubsnip-0")
+            .add("title", "First Sample Snippet (Docker rename container)")
+            .add("description", "This is a sample snippet." +
+                "Docker rename container" +
+                "The docker rename command allows the container to be renamed to a different name.")
+            .add("code", "Usage: docker rename [OPTIONS] OLD_NAME NEW_NAME\n" +
+                "\n" +
+                "Rename a container\n" +
+                "\n" +
+                "  --help          Print usage")
+            .add("url", "https://docs.docker.com/engine/reference/commandline/rename/")
+            .add("created_by", "system")
+            .add("created_date", new Date())
+            .get()
+        );
+
+        DBCollection userSnippets = db.getCollection("csl_user_snippets");
+        userSnippets.createIndex("title");
+        userSnippets.insert(BasicDBObjectBuilder.start()
+            .add("_id", "usersnip-0")
+            .add("title", "First Sample Snippet (Docker rename container)")
+            .add("description", "This is a sample snippet." +
+                "Docker rename container" +
+                "The docker rename command allows the container to be renamed to a different name.")
+            .add("code", "Usage: docker rename [OPTIONS] OLD_NAME NEW_NAME\n" +
+                "\n" +
+                "Rename a container\n" +
+                "\n" +
+                "  --help          Print usage")
+            .add("url", "https://docs.docker.com/engine/reference/commandline/rename/")
+            .add("created_by", "admin")
+            .add("created_date", new Date())
             .get()
         );
     }
