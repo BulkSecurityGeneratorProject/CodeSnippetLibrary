@@ -14,6 +14,7 @@
         vm.cancel = cancel;
         vm.credentials = {};
         vm.login = login;
+        $rootScope.login = login;
         vm.password = null;
         vm.register = register;
         vm.rememberMe = true;

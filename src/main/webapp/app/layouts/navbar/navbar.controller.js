@@ -5,9 +5,9 @@
         .module('codeSnippetLibraryApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$rootScope', '$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($rootScope, $state, Auth, Principal, ProfileService, LoginService) {
         var vm = this;
 
         vm.account = null;
@@ -55,7 +55,7 @@
         }
 
         function userSnippets() {
-            $state.go('user-snippets', {'username': vm.account.login});
+            $state.go('user-snippets', {'username': $rootScope.login});
         }
     }
 })();
