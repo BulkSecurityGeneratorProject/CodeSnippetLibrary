@@ -44,6 +44,17 @@ To ensure everything worked, run:
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
+## Deploying to Heroku
+
+When your application is already deployed, you can prepare a new deployment by typing:
+
+    ./mvnw package -Pprod -DskipTests
+
+Pushing to production:
+
+    heroku deploy:jar --jar target/*.war
+
+
 ## Testing
 
 Unit tests are run by [Karma][] and written with [Jasmine][]. They're located in `src/test/javascript/` and can be run with:
