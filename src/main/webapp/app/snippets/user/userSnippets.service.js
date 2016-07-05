@@ -8,11 +8,21 @@
         .module('codeSnippetLibraryApp')
         .factory('UserSnippetsService', UserSnippetsService);
 
-    UserSnippetsService.$inject = ['$rootScope', '$http'];
+    UserSnippetsService.$inject = ['$http'];
 
-    function UserSnippetsService ($rootScope, $http) {
+    function UserSnippetsService ($http) {
 
-        
+        var service = {
+            findAll: findAll
+        };
 
+        return service;
+
+
+        function findAll () {
+            return $http.get('/api/user_snippets').then(function (response) {
+                return response.data;
+            });
+        }
     }
 })();

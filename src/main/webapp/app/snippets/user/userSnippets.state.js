@@ -16,13 +16,13 @@
             url: '/snippets/:username',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'My Snippets'
+                pageTitle: 'User Snippets'
             },
             views: {
                 'content@': {
                     templateUrl: 'app/snippets/user/user_snippets.html',
                     controller: 'UserSnippetsController',
-                    controllerAs: 'usnips'
+                    controllerAs: 'vm'
                 }
             }
         });

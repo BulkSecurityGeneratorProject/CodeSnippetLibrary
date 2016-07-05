@@ -55,7 +55,13 @@
         }
 
         function userSnippets() {
-            $state.go('user-snippets', {'username': $rootScope.login});
+            if (vm.account === null) {
+                Principal.identity().then(function(account) {
+                    $state.go('user-snippets', {'username': account.login});
+                });
+            } else {
+                $state.go('user-snippets', {'username': vm.account.login});
+            }
         }
     }
 })();

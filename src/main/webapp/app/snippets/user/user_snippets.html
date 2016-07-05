@@ -1,1 +1,42 @@
-<h2>Health Checks</h2>
+<div class="container">
+    <div class="row">
+        <h2>Search...</h2>
+        <div id="custom-search-input">
+            <div class="input-group col-md-11">
+                <input class="search-query form-control" placeholder="Search" type="text" ng-model="vm.query" ng-change="vm.search();"/>
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" type="button" ng-click="vm.search();">
+                    <span class=" glyphicon glyphicon-search"></span>
+                  </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <hgroup class="mb20" ng-show="vm.showResults == true">
+        <h1>Search Results</h1>
+        <h2 class="lead"><strong class="text-danger">{{vm.data.length}}</strong> results were found for the search for <strong class="text-danger">{{vm.query}}</strong></h2>
+    </hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12" >
+        <article class="search-result row" ng-repeat="snippet in vm.data">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <a href="#/snippet/{{snippet.id}}" title="{{snippet.title}}" class="thumbnail"><img src="{{book.Image}}" alt="Lorem ipsum" /></a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <ul class="meta-search">
+                    <li><i class="glyphicon glyphicon-calendar"></i> <span>id: {{snippet.id}}</span></li>
+                     <li><i class="glyphicon glyphicon-time"></i> <span>4:28 pm</span></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 excerpet">
+                <h3><a href="#/book/{{book.ID}}" title="">{{snippet.title}}</a></h3>
+                <p>{{snippet.description}}</p>
+            </div>
+            <span class="clearfix borda"></span>
+        </article>
+    </section>
+</div>
