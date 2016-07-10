@@ -6,11 +6,11 @@
 
     angular
         .module('codeSnippetLibraryApp')
-        .factory('UserSnippetsService', UserSnippetsService);
+        .factory('SnippetsService', SnippetsService);
 
-    UserSnippetsService.$inject = ['$http'];
+    SnippetsService.$inject = ['$http'];
 
-    function UserSnippetsService ($http) {
+    function SnippetsService ($http) {
 
         var service = {
             findAll: findAll
@@ -19,8 +19,8 @@
         return service;
 
 
-        function findAll () {
-            return $http.get('/api/user_snippets').then(function (response) {
+        function findAll (username) {
+            return $http.get('/api/snippets/' + username).then(function (response) {
                 return response.data;
             });
         }

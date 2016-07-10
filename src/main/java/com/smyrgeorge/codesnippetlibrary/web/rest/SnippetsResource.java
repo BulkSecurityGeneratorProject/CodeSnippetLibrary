@@ -1,9 +1,10 @@
 package com.smyrgeorge.codesnippetlibrary.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.smyrgeorge.codesnippetlibrary.domain.UserSnippet;
-import com.smyrgeorge.codesnippetlibrary.repository.UserSnippetRepository;
+import com.smyrgeorge.codesnippetlibrary.domain.Snippet;
+import com.smyrgeorge.codesnippetlibrary.repository.SnippetRepository;
 import com.smyrgeorge.codesnippetlibrary.security.AuthoritiesConstants;
+import com.smyrgeorge.codesnippetlibrary.service.SnippetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,25 +25,24 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/api")
-public class UserSnippetsResource {
+public class SnippetsResource {
 
 
-    private final Logger log = LoggerFactory.getLogger(UserSnippetsResource.class);
+    private final Logger log = LoggerFactory.getLogger(SnippetsResource.class);
 
 
     @Inject
-    private UserSnippetRepository userSnippetRepository;
+    private SnippetService snippetService;
 
 
-    @RequestMapping(value = "/user_snippets",
+    @RequestMapping(value = "/snippets/{username}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Secured(AuthoritiesConstants.USER)
-    public ResponseEntity<List<UserSnippet>> getAllUsersSnippets() {
+    public ResponseEntity<List<Snippet>> getAllSnippetsByUsername(@PathVariable String username) {
 
-        List<UserSnippet> userSnippets = userSnippetRepository.findAll();
-
+        List<Snippet> userSnippets = snippetService.findAllByCreatedBy(username);
         return new ResponseEntity<>(userSnippets, HttpStatus.OK);
     }
 }

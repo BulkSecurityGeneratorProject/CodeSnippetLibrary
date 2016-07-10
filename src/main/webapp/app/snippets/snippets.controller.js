@@ -6,11 +6,11 @@
 
     angular
         .module('codeSnippetLibraryApp')
-        .controller('UserSnippetsController', UserSnippetsController);
+        .controller('SnippetsController', SnippetsController);
 
-    UserSnippetsController.$inject = ['$stateParams', 'UserSnippetsService'];
+    SnippetsController.$inject = ['$stateParams', 'UserSnippetsService'];
 
-    function UserSnippetsController ($stateParams, UserSnippetsService) {
+    function SnippetsController ($stateParams, SnippetsService) {
         var vm = this;
 
         vm.query = '';
@@ -27,7 +27,7 @@
                 vm.showResults = true;
             } else {
                 vm.showResults = false;
-                UserSnippetsService.findAll().then(function(val) {
+                SnippetsService.findAll(vm.username).then(function(val) {
                     vm.data = val;
                     console.log(vm.data[0])
                 });

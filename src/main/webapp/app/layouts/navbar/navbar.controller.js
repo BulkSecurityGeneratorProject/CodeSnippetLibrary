@@ -23,7 +23,7 @@
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
-        vm.userSnippets = userSnippets;
+        vm.snippets = snippets;
         vm.$state = $state;
 
         getAccount();
@@ -54,13 +54,13 @@
             vm.isNavbarCollapsed = true;
         }
 
-        function userSnippets() {
+        function snippets() {
             if (vm.account === null) {
                 Principal.identity().then(function(account) {
-                    $state.go('user-snippets', {'username': account.login});
+                    $state.go('snippets', {'username': account.login});
                 });
             } else {
-                $state.go('user-snippets', {'username': vm.account.login});
+                $state.go('snippets', {'username': vm.account.login});
             }
         }
     }

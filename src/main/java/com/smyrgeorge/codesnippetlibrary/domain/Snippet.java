@@ -10,8 +10,8 @@ import java.util.Date;
 /**
  * Created by smyrgeorge on 7/5/16.
  */
-@Document(collection = "csl_user_snippets")
-public class UserSnippet {
+@Document(collection = "csl_snippets")
+public class Snippet {
 
     @Id
     private String id;
@@ -26,6 +26,9 @@ public class UserSnippet {
     @NotNull
     @Field("code")
     private String code;
+
+    @Field("programming_language")
+    private String programmingLanguage;
 
     @Field("url")
     private String url;
@@ -42,12 +45,14 @@ public class UserSnippet {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserSnippet snippet = (UserSnippet) o;
+        Snippet snippet = (Snippet) o;
 
-        if (id != null ? !id.equals(snippet.id) : snippet.id != null) return false;
-        if (title != null ? !title.equals(snippet.title) : snippet.title != null) return false;
+        if (!id.equals(snippet.id)) return false;
+        if (!title.equals(snippet.title)) return false;
         if (description != null ? !description.equals(snippet.description) : snippet.description != null) return false;
         if (code != null ? !code.equals(snippet.code) : snippet.code != null) return false;
+        if (programmingLanguage != null ? !programmingLanguage.equals(snippet.programmingLanguage) : snippet.programmingLanguage != null)
+            return false;
         if (url != null ? !url.equals(snippet.url) : snippet.url != null) return false;
         if (createdBy != null ? !createdBy.equals(snippet.createdBy) : snippet.createdBy != null) return false;
         return createdDay != null ? createdDay.equals(snippet.createdDay) : snippet.createdDay == null;
@@ -56,15 +61,17 @@ public class UserSnippet {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (programmingLanguage != null ? programmingLanguage.hashCode() : 0);
         result = 31 * result + (url != null ? url.hashCode() : 0);
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         result = 31 * result + (createdDay != null ? createdDay.hashCode() : 0);
         return result;
     }
+
 
     public String getId() {
         return id;
@@ -96,6 +103,14 @@ public class UserSnippet {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
+    }
+
+    public void setProgrammingLanguage(String programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
     public String getUrl() {

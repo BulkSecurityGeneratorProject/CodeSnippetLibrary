@@ -74,44 +74,49 @@ public class InitialSetupMigration {
         );
     }
 
-    @ChangeSet(order = "03", author = "initiator", id = "03-addSampleSnippets")
-    public void addSampleSnippets(DB db) {
-        DBCollection publicSnippets = db.getCollection("csl_public_snippets");
-        publicSnippets.createIndex("title");
-        publicSnippets.insert(BasicDBObjectBuilder.start()
-            .add("_id", "pubsnip-0")
-            .add("title", "First Sample Snippet (Docker rename container)")
-            .add("description", "This is a sample snippet." +
-                "Docker rename container" +
-                "The docker rename command allows the container to be renamed to a different name.")
-            .add("code", "Usage: docker rename [OPTIONS] OLD_NAME NEW_NAME\n" +
-                "\n" +
-                "Rename a container\n" +
-                "\n" +
-                "  --help          Print usage")
-            .add("url", "https://docs.docker.com/engine/reference/commandline/rename/")
-            .add("created_by", "system")
-            .add("created_date", new Date())
+    @ChangeSet(order = "03", author = "initiator", id = "03-addProgrammingLanguages")
+    public void addProgrammingLanguages(DB db) {
+        DBCollection programmingLanguages = db.getCollection("csl_programming_language");
+        programmingLanguages.insert(BasicDBObjectBuilder.start()
+            .add("_id", "plain_text")
+            .add("title", "Plain Text")
             .get()
         );
-
-        DBCollection userSnippets = db.getCollection("csl_user_snippets");
-        userSnippets.createIndex("title");
-        userSnippets.insert(BasicDBObjectBuilder.start()
-            .add("_id", "usersnip-0")
-            .add("title", "First Sample Snippet (Docker rename container)")
-            .add("description", "This is a sample snippet." +
-                "Docker rename container" +
-                "The docker rename command allows the container to be renamed to a different name.")
-            .add("code", "Usage: docker rename [OPTIONS] OLD_NAME NEW_NAME\n" +
-                "\n" +
-                "Rename a container\n" +
-                "\n" +
-                "  --help          Print usage")
-            .add("url", "https://docs.docker.com/engine/reference/commandline/rename/")
-            .add("created_by", "admin")
-            .add("created_date", new Date())
+        programmingLanguages.insert(BasicDBObjectBuilder.start()
+            .add("_id", "java")
+            .add("title", "Java")
+            .get()
+        );
+        programmingLanguages.insert(BasicDBObjectBuilder.start()
+            .add("_id", "c")
+            .add("title", "C")
             .get()
         );
     }
+
+    @ChangeSet(order = "04", author = "initiator", id = "04-addSampleSnippets")
+    public void addSampleSnippets(DB db) {
+        DBCollection publicSnippets = db.getCollection("csl_snippets");
+        publicSnippets.createIndex("title");
+        publicSnippets.insert(BasicDBObjectBuilder.start()
+            .add("_id", "snip-0")
+            .add("title", "First Sample Snippet (Docker rename container)")
+            .add("description", "This is a sample snippet." +
+                "Docker rename container" +
+                "The docker rename command allows the container to be renamed to a different name.")
+            .add("code", "Usage: docker rename [OPTIONS] OLD_NAME NEW_NAME\n" +
+                "\n" +
+                "Rename a container\n" +
+                "\n" +
+                "  --help          Print usage")
+            .add("programming_language", "Plain Text")
+            .add("url", "https://docs.docker.com/engine/reference/commandline/rename/")
+            .add("created_by", "admin")
+            .add("created_date", new Date())
+            .add("public", false)
+            .get()
+        );
+    }
+
+
 }

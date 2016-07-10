@@ -11,17 +11,17 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('user-snippets', {
+        $stateProvider.state('snippets', {
             parent: 'app',
             url: '/snippets/:username',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'User Snippets'
+                pageTitle: 'Snippets'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/snippets/user/user_snippets.html',
-                    controller: 'UserSnippetsController',
+                    templateUrl: 'app/snippets/user/snippets.html',
+                    controller: 'SnippetsController',
                     controllerAs: 'vm'
                 }
             }
